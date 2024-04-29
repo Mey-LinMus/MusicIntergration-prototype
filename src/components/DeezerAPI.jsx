@@ -1,6 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 const DeezerAPIExample = () => {
+  const [artist, setArtist] = useState(null);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -11,8 +13,10 @@ const DeezerAPIExample = () => {
           throw new Error("Network response was not ok");
         }
         const data = await response.json();
-        console.log(data.data);
 
+        setArtist(data);
+
+        console.log(data.data);
       } catch (error) {
         console.error("Error fetching tracks:", error);
       }
@@ -21,7 +25,16 @@ const DeezerAPIExample = () => {
     fetchData();
   }, []);
 
-  return <div></div>;
+  return (
+    <div>
+      {artist && (
+        <div>
+          <h2>{artist.name}</h2>
+          <img src={artist.picture_medium} alt={artist.name} />
+        </div>
+      )}
+    </div>
+  );
 };
 
 export default DeezerAPIExample;
