@@ -2,7 +2,6 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
-const lyricsFinder = require("lyrics-finder");
 const SpotifyWebApi = require("spotify-web-api-node");
 
 const app = express();
@@ -55,11 +54,5 @@ app.post("/login", (req, res) => {
     });
 });
 
-app.get("/lyrics", async (req, res) => {
-  const lyrics =
-    (await lyricsFinder(req.query.artist, req.query.track)) ||
-    "No Lyrics Found";
-  res.json({ lyrics });
-});
 
 app.listen(3001);
