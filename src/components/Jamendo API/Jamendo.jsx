@@ -11,7 +11,6 @@ const JamendoTracks = () => {
           "https://api.jamendo.com/v3.0/tracks/?client_id=a0170ffb"
         );
         setTracks(response.data.results);
-        console.log(response.data);
       } catch (error) {
         console.error("Error fetching tracks:", error);
       }
@@ -19,6 +18,12 @@ const JamendoTracks = () => {
 
     fetchTracks();
   }, []);
+
+  const playTrack = (audioUrl) => {
+    const audio = new Audio(audioUrl);
+    audio.play();
+    console.log("Playing track");
+  };
 
   return (
     <div>
@@ -28,6 +33,7 @@ const JamendoTracks = () => {
           <li key={track.id}>
             <img src={track.album_image} alt="" />
             {track.name}
+            <button onClick={() => playTrack(track.audio)}>Play</button>
           </li>
         ))}
       </ul>
